@@ -178,3 +178,37 @@ export const rejectOrder = async (orderId: string) => {
     };
   }
 };
+
+export const fetchSalesByMonth = async () => {
+  try {
+    // Fetch all orders
+    const orders = await db.orders.findMany({
+      select: {
+        totalPrice: true,
+        createdAt: true,
+      },
+    });
+
+    // Group by month
+    const salesByMonth = orders.reduce<Record<string, number>>((acc, order) => {
+      const month = new Date(order.createdAt).toLocaleString("default", {
+        month: "long",
+      });
+      if (!acc[month]) {
+        acc[month] = 0;
+      }
+      acc[month] += order.totalPrice || 0; // Ensure totalPrice is added correctly
+      return acc;
+    }, {});
+
+    // Format the result to match the structure you need
+    const formattedData = Object.keys(salesByMonth).map((month) => ({
+      month,
+      sales: salesByMonth[month],
+    }));
+
+    return formattedData;
+  } catch (error) {
+    console.error("Error fetching sales data:", error);
+  }
+};

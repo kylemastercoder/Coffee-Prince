@@ -29,3 +29,14 @@ export const CheckoutFormValidation = z.object({
   contactNumber: z.string().min(1, { message: "Contact Number is required" }),
   proofOfPayment: z.string().optional(),
 });
+
+export const UserLoginValidation = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string().min(1, { message: "Password is required" }),
+});
+
+export const ContactValidation = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  name: z.string().min(1, { message: "Name is required" }),
+  message: z.string().min(1, { message: "Message is required" }),
+});

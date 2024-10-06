@@ -51,7 +51,7 @@ const Navbar = () => {
     <header className="sticky backdrop-blur z-50 top-0 flex h-24 shadow-xl items-center gap-20 px-4 md:px-60">
       <nav className="hidden md:flex md:items-center gap-6 text-md font-medium md:gap-10">
         <Link href="/" className="flex items-center">
-          <Image src="/images/cflogo.png" width={200} height={200} alt="Logo" />
+          <Image src="/images/cflogo.png" width={300} height={300} alt="Logo" />
         </Link>
         <Link
           href="/"
@@ -64,6 +64,12 @@ const Navbar = () => {
           className="text-white transition-colors hover:text-orange-600"
         >
           Menu
+        </Link>
+        <Link
+          href="/contact-us"
+          className="text-white transition-colors hover:text-orange-600"
+        >
+          Contact
         </Link>
       </nav>
       <Sheet>

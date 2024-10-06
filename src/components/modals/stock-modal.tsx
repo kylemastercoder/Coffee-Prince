@@ -29,15 +29,14 @@ const StockModal: React.FC<StockModalProps> = ({
   }
 
   return (
-    <Modal title="Update Stock" description="Manage your inventory effortlessly with our stock update feature." isOpen={isOpen} onClose={onClose}>
+    <Modal title="Add Stock" description="Manage your inventory effortlessly with our stock add feature." isOpen={isOpen} onClose={onClose}>
       <div className="space-y-1">
         <Label>Stock</Label>
         <Input 
           type="number" 
           placeholder="Enter stock" 
-          min={1} 
           value={newStock} 
-          onChange={(e) => setNewStock(Number(e.target.value))} // Update stock on change
+          onChange={(e) => setNewStock(Number(e.target.value))}
         />
       </div>
       <div className="pt-6 space-x-2 flex items-center justify-end w-full">

@@ -10,9 +10,10 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { LogOut, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useClerk } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 const HeaderAdmin = () => {
   const pathname = usePathname();
@@ -53,6 +54,8 @@ const HeaderAdmin = () => {
     return formatSegment(lastSegment);
   };
 
+  const { signOut } = useClerk();
+
   return (
     <div className="flex items-center justify-between py-3 px-5">
       <Breadcrumb className="hidden md:flex">
@@ -88,14 +91,13 @@ const HeaderAdmin = () => {
           ))}
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="relative md:block hidden mt-1">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input
-          type="search"
-          placeholder="Search..."
-          className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
-        />
-      </div>
+      <Button
+        variant="destructive"
+        onClick={() => signOut({ redirectUrl: "/admin/sign-in" })}
+      >
+        <LogOut className="w-4 h-4 mr-2" />
+        Logout
+      </Button>
     </div>
   );
 };

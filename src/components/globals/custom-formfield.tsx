@@ -94,9 +94,9 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
       return (
         <>
           <FormControl>
-            <div className="shad-input-outer">
+            <div className="relative">
               <Input
-                type={type === "password" && !showPassword ? "password" : type}
+                type={type === "password" && !showPassword ? "text" : type}
                 placeholder={placeholder}
                 disabled={disabled}
                 {...field}
@@ -116,7 +116,7 @@ const RenderField = ({ field, props }: { field: any; props: CustomProps }) => {
                   type="button"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   onClick={toggleShowPassword}
-                  className="floating-right-btn"
+                  className="absolute top-2.5 right-2.5"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />

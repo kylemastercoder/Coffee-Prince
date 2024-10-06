@@ -9,6 +9,7 @@ import {
   IconBrandTabler,
   IconBubbleTea,
   IconLogout,
+  IconMessage,
   IconSettings,
   IconStack2,
   IconTruckDelivery,
@@ -18,51 +19,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-const links = [
-  {
-    label: "Dashboard",
-    href: "/admin/dashboard",
-    icon: (
-      <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Menus",
-    href: "/admin/menus",
-    icon: (
-      <IconBubbleTea className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Orders",
-    href: "/admin/orders",
-    icon: (
-      <IconTruckDelivery className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Inventory",
-    href: "/admin/inventory",
-    icon: (
-      <IconStack2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Settings",
-    href: "/admin/logout",
-    icon: (
-      <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-  {
-    label: "Logout",
-    href: "#",
-    icon: (
-      <IconLogout className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-    ),
-  },
-];
-
 const SidebarAdmin = ({
   imageUrl,
   name,
@@ -70,7 +26,45 @@ const SidebarAdmin = ({
   imageUrl: string;
   name: string;
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
+
+  const links = [
+    {
+      label: "Dashboard",
+      href: "/admin/dashboard",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Menus",
+      href: "/admin/menus",
+      icon: (
+        <IconBubbleTea className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Orders",
+      href: "/admin/orders",
+      icon: (
+        <IconTruckDelivery className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Inventory",
+      href: "/admin/inventory",
+      icon: (
+        <IconStack2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Messages",
+      href: "/admin/messages",
+      icon: (
+        <IconMessage className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+  ];
   return (
     <Sidebar open={open} setOpen={setOpen}>
       <SidebarBody className="justify-between gap-10">

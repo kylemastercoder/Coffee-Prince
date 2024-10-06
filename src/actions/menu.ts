@@ -171,22 +171,39 @@ export const getAllMenus = async () => {
   return menus;
 };
 
-export const updateStock = async (menuId: string, stock: number) => {
+export const updateStock = async (menuId: string, newStock: number) => {
   if (!menuId) {
     return { error: "Menu ID is required" };
   }
 
   try {
-    const menu = await db.menus.update({
+    // Retrieve the current stock first
+    const currentMenu = await db.menus.findUnique({
+      where: { id: menuId },
+      select: { stocks: true }, // Select only the stocks field
+    });
+
+    if (!currentMenu) {
+      return { error: "Menu item not found" };
+    }
+
+    const currentStock = currentMenu.stocks;
+
+    // Update the stock
+    const updatedMenu = await db.menus.update({
       data: {
-        stocks: stock,
+        stocks: newStock + currentStock,
       },
       where: {
         id: menuId,
       },
     });
 
-    return { success: "Stock updated successfully", menu };
+    // Return success message along with current and new stock values
+    return {
+      success: "Stock updated successfully",
+      menu: updatedMenu
+    };
   } catch (error: any) {
     return {
       error: `Failed to update stock. Please try again. ${error.message || ""}`,

@@ -1,10 +1,22 @@
+import db from "@/lib/db";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import React from "react";
 
-import React from 'react'
+const AdminPage = async () => {
+  const { userId } = auth();
+  if (!userId) return null;
+  const admin = await db.admin.findFirst({
+    where: {
+      id: userId,
+    },
+  });
 
-const AdminPage = () => {
-  return (
-    <div>AdminPage</div>
-  )
-}
+  if (!admin) {
+    redirect("/admin/sign-in");
+  } else {
+    redirect("/admin/dashboard");
+  }
+};
 
-export default AdminPage
+export default AdminPage;

@@ -1,25 +1,24 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { InventoryColumn } from "./column";
+import { MessageColumn } from "./column";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Edit, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import StockModal from "@/components/modals/stock-modal";
-import { updateStock } from "@/actions/menu";
+import AlertModal from "@/components/globals/alert-modal";
+import { deleteMessage } from "@/actions/contact";
 
 interface CellActionProps {
-  data: InventoryColumn;
+  data: MessageColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -27,32 +26,29 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const onUpdateStock = async (newStock: number) => {
+  const onDelete = async () => {
     setIsLoading(true);
-    try {
-      const response = await updateStock(data.id, newStock);
-      if (response.error) {
-        toast.error(response.error);
-      } else {
-        toast.success(response.success);
-        router.refresh();
-        setOpen(false);
-      }
-    } catch (error) {
-      toast.error("Failed to update stock. Please try again.");
-    } finally {
-      setIsLoading(false);
-      setOpen(false);
-    }
+    deleteMessage(data.id)
+      .then((data) => {
+        if (data.success) {
+          toast.success(data.success);
+          router.refresh();
+        } else {
+          toast.error(data.error);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
     <>
-      <StockModal
+      <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
         loading={isLoading}
-        onConfirm={onUpdateStock}
+        onConfirm={onDelete}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -64,10 +60,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Edit className="w-4 h-4 mr-2" />
-            Add Stock
+            <Trash className="w-4 h-4 mr-2" />
+            Delete
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
         </DropdownMenuContent>
       </DropdownMenu>
     </>
