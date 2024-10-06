@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Menus {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  image       String
+  stocks      Int
+  featured    String   @default("No")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  categoryId String
+  category   Categories @relation("MenuToCategory", fields: [categoryId], references: [id])
+
+  variants Variants[] @relation("MenuToVariant")
+  flavors  Flavors[]  @relation("MenuToFlavor")
+  orders Orders[] @relation("OrderToMenu")
+  
+  @@index([categoryId])
+}
+
+model Variants {
+  id        String   @id @default(cuid())
+  name      String
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menus Menus[] @relation("MenuToVariant")
+}
+
+model Flavors {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menus Menus[] @relation("MenuToFlavor")
+}
+
+model Categories {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menus Menus[] @relation("MenuToCategory")
+}
+
+model Orders {
+  id             String   @id @default(cuid())
+  name           String
+  orderId        String
+  userId         String
+  address        String
+  contactNumber  String
+  flavor         String
+  productName    String
+  variant        String
+  totalPrice     Float
+  quantity       Int
+  paymentMethod  String
+  proofOfPayment String
+  status         String   @default("Pending")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  menuId String
+  menu Menus[] @relation("OrderToMenu")
+}
