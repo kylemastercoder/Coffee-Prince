@@ -34,7 +34,7 @@ const AdminMessage = async () => {
         <CardHeader>
           <CardTitle>Messages</CardTitle>
           <CardDescription>
-            Manage your message and view what's customer wants.
+            Manage your message and view what&apos;s customer wants.
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -65,7 +65,7 @@ const ContactUs = () => {
             We want to help in any way we can.
           </p>
           <p className="text-sm text-muted-foreground">
-            We've answered the most commonly asked questions.
+            We&apos;ve answered the most commonly asked questions.
           </p>
           <Form {...form}>
             <form

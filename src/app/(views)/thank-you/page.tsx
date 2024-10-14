@@ -2,7 +2,6 @@ import BreadcrumbBanner from "@/components/globals/breadcrumb-banner";
 import Navbar from "@/components/globals/landing-page/navbar";
 import db from "@/lib/db";
 import { formatPrice } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 

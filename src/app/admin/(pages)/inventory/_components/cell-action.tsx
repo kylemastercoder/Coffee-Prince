@@ -39,6 +39,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         setOpen(false);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed to update stock. Please try again.");
     } finally {
       setIsLoading(false);

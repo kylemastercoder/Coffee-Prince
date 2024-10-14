@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -32,10 +33,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [proofOpen, setProofOpen] = useState(false);
   const [approveOpen, setApproveOpen] = useState(false);
   const [rejectOpen, setRejectOpen] = useState(false);
-  const onCopy = (name: string) => {
-    navigator.clipboard.writeText(name);
-    toast.success("Data copied to the clipboard");
-  };
 
   const onDelete = async () => {
     setIsLoading(true);

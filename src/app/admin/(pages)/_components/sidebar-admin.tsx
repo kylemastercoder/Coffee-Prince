@@ -8,9 +8,7 @@ import {
 import {
   IconBrandTabler,
   IconBubbleTea,
-  IconLogout,
   IconMessage,
-  IconSettings,
   IconStack2,
   IconTruckDelivery,
 } from "@tabler/icons-react";
