@@ -67,7 +67,7 @@ const TableHeader = ({ label, href }: { label: string; href: string }) => {
           {dateInfo.day}, {dateInfo.date}
         </p>
         <p className="text-lg font-bold">
-          {dateInfo.greeting}, Kyle Andre Lim! 👋
+          {dateInfo.greeting}, Billy Joe Dela Torre! 👋
         </p>
       </div>
       <div className="flex items-center gap-3">
