@@ -21,7 +21,7 @@ const ViewMenu = async ({ params }: { params: { menuId: string } }) => {
       <Navbar />
       <Banner image={menu?.image as string} title={menu?.name as string} />
       {menu && <CartForm menu={menu} />}
-      <div className="px-52 gap-20 py-10">
+      <div className="md:px-52 px-10 gap-20 py-10">
         <p className="text-3xl font-bold">Related Products </p>
         {menu && <MenuContainer menus={[menu]} />}
       </div>

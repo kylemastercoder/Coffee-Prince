@@ -96,32 +96,26 @@ const Navbar = () => {
               />
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              href="/"
+              className="text-white transition-colors hover:text-orange-600"
             >
               Home
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              About
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              href="/menu"
+              className="text-white transition-colors hover:text-orange-600"
             >
               Menu
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              href="/#about"
+              className="text-white transition-colors hover:text-orange-600"
             >
-              FAQs
+              About
             </Link>
             <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+              href="/contact-us"
+              className="text-white transition-colors hover:text-orange-600"
             >
               Contact
             </Link>

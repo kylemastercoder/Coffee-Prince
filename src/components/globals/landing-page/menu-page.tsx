@@ -92,9 +92,9 @@ const MenuPage = () => {
       <Navbar />
       <BreadcrumbBanner image="feature3.jpg" title="Menu" />
       <div className="md:px-40 px-10 py-10">
-        <div className="flex items-center mb-10 justify-between">
+        <div className="flex md:flex-row flex-col items-center mb-10 justify-between">
           <div className="flex items-center gap-3">
-            <p className="w-80 font-semibold text-lg">Filter By:</p>
+            <p className="w-80 md:block hidden font-semibold text-lg">Filter By:</p>
 
             <Select onValueChange={setSelectedCategory}>
               <SelectTrigger>
@@ -125,7 +125,7 @@ const MenuPage = () => {
               </SelectContent>
             </Select>
           </div>
-          <Badge>{filteredMenus.length} products</Badge>
+          <Badge className="md:block hidden">{filteredMenus.length} products</Badge>
         </div>
         <MenuContainer menus={filteredMenus} />
       </div>

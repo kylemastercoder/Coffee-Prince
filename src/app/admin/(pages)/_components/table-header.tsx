@@ -61,7 +61,7 @@ const TableHeader = ({ label, href }: { label: string; href: string }) => {
   }, []);
 
   return (
-    <div className="flex justify-between items-center gap-2">
+    <div className="flex md:flex-row flex-col justify-between md:items-center gap-2">
       <div>
         <p className="text-sm text-muted-foreground">
           {dateInfo.day}, {dateInfo.date}

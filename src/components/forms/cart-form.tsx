@@ -47,7 +47,7 @@ const CartForm = ({ menu }: { menu: MenuWithFeatures }) => {
   };
 
   return (
-    <div className="grid grid-cols-5 mx-auto px-52 gap-20 py-10">
+    <div className="grid md:grid-cols-5 grid-cols-1 mx-auto md:px-52 px-10 gap-20 py-10">
       <div className="col-span-2">
         <Badge variant="secondary">{menu?.category.name}</Badge>
         <p className="text-4xl font-bold mt-2">{menu?.name}</p>

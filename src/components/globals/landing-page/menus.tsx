@@ -37,7 +37,7 @@ const MenuSection = () => {
   const data = Object.keys(groupedMenus).map((category) => ({
     title: category, // Use the category as the title
     content: (
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {groupedMenus[category].map((menu) => (
           <MenuCard
             key={menu.id}

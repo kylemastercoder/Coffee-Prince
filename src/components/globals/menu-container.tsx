@@ -6,7 +6,7 @@ import { MenusWithFeatures } from "./landing-page/menu-page";
 
 const MenuContainer = ({ menus }: { menus: MenusWithFeatures[] }) => {
   return (
-    <div className="grid grid-cols-4 mt-5 gap-5">
+    <div className="grid md:grid-cols-4 grid-cols-1 mt-5 gap-5">
       {menus.map((menu) => (
         <MenuCard
           key={menu.id}
