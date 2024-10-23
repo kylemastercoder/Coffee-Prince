@@ -334,6 +334,7 @@ const MenuForm: React.FC<MenuFormProps> = ({
                                   <SelectItem value="12 oz">12 oz</SelectItem>
                                   <SelectItem value="16 oz">16 oz</SelectItem>
                                   <SelectItem value="22 oz">22 oz</SelectItem>
+                                  <SelectItem value="Food">Food</SelectItem>
                                 </SelectContent>
                               </Select>
                             </TableCell>

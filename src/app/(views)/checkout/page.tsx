@@ -2,7 +2,7 @@
 
 import BreadcrumbBanner from "@/components/globals/breadcrumb-banner";
 import Navbar from "@/components/globals/landing-page/navbar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import useCart from "@/hooks/use-cart";
 import Image from "next/image";
@@ -20,7 +20,6 @@ import CustomFormField from "@/components/globals/custom-formfield";
 import { FormFieldType } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useAddressData } from "@/lib/address-selection";
 import { Button } from "@/components/ui/button";
 import { placeOrder } from "@/actions/orders";
 import { useUser } from "@clerk/nextjs";
@@ -38,15 +37,21 @@ const Checkout = () => {
   const form = useForm<z.infer<typeof CheckoutFormValidation>>({
     resolver: zodResolver(CheckoutFormValidation),
     defaultValues: {
+      name: user?.fullName ?? "",
       contactNumber: "",
-      address: "",
-      region: "",
-      province: "",
-      municipality: "",
-      barangay: "",
       proofOfPayment: "",
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        name: user.fullName || "",
+        contactNumber: "",
+        proofOfPayment: "",
+      });
+    }
+  }, [user, form]);
 
   const pricePerMenu = cart.items.map((item) => item.price * item.quantity);
 
@@ -83,21 +88,6 @@ const Checkout = () => {
       setIsPending(false);
     }
   };
-
-  const selectedRegionName = form.watch("region");
-  const selectedProvinceName = form.watch("province");
-  const selectedMunicipalityName = form.watch("municipality");
-
-  const {
-    regionOptions,
-    provinceOptions,
-    municipalityOptions,
-    barangayOptions,
-  } = useAddressData(
-    selectedRegionName,
-    selectedProvinceName,
-    selectedMunicipalityName
-  );
 
   return (
     <>
@@ -196,65 +186,20 @@ const Checkout = () => {
             <div className="space-y-4">
               <CustomFormField
                 control={form.control}
+                fieldType={FormFieldType.INPUT}
+                name="name"
+                label="Name"
+                isRequired
+                disabled
+              />
+              <CustomFormField
+                control={form.control}
                 fieldType={FormFieldType.PHONE_INPUT}
                 name="contactNumber"
                 label="Contact Number"
                 isRequired
                 disabled={isPending}
               />
-              <CustomFormField
-                control={form.control}
-                fieldType={FormFieldType.INPUT}
-                name="address"
-                label="House/Unit/Block No., Street, Subdivision/Village"
-                placeholder="1234 Coffee St."
-                isRequired
-                disabled={isPending}
-              />
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
-                <CustomFormField
-                  control={form.control}
-                  fieldType={FormFieldType.SELECT}
-                  name="region"
-                  label="Region"
-                  placeholder="Select Region"
-                  options={regionOptions}
-                  isRequired
-                  disabled={isPending}
-                />
-                <CustomFormField
-                  control={form.control}
-                  fieldType={FormFieldType.SELECT}
-                  name="province"
-                  label="Province"
-                  placeholder="Select Province"
-                  options={provinceOptions}
-                  isRequired
-                  disabled={isPending || !selectedRegionName}
-                />
-              </div>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
-                <CustomFormField
-                  control={form.control}
-                  fieldType={FormFieldType.SELECT}
-                  name="municipality"
-                  label="Municipality"
-                  placeholder="Select Municipality"
-                  options={municipalityOptions}
-                  isRequired
-                  disabled={isPending || !selectedProvinceName}
-                />
-                <CustomFormField
-                  control={form.control}
-                  fieldType={FormFieldType.SELECT}
-                  name="barangay"
-                  label="Barangay"
-                  placeholder="Select Barangay"
-                  options={barangayOptions}
-                  isRequired
-                  disabled={isPending || !selectedMunicipalityName}
-                />
-              </div>
               <div className="flex items-center gap-x-2">
                 <label
                   className={`${
@@ -339,7 +284,7 @@ const Checkout = () => {
                 </label>
                 <label
                   className={`${
-                    selectedPaymentMethod === "COD"
+                    selectedPaymentMethod === "OverTheCounter"
                       ? "cursor-pointer"
                       : "cursor-default"
                   } w-full`}
@@ -348,13 +293,13 @@ const Checkout = () => {
                     type="radio"
                     className="peer sr-only"
                     name="payment_method"
-                    onChange={() => handleSelectPaymentMethod("COD")}
-                    checked={selectedPaymentMethod === "COD"}
+                    onChange={() => handleSelectPaymentMethod("OverTheCounter")}
+                    checked={selectedPaymentMethod === "OverTheCounter"}
                     disabled={isPending}
                   />
                   <div
                     className={`w-full rounded-md p-3 transition-all shadow-md border ${
-                      selectedPaymentMethod === "COD"
+                      selectedPaymentMethod === "OverTheCounter"
                         ? "border-orange-600"
                         : "border-input"
                     }`}
@@ -362,14 +307,14 @@ const Checkout = () => {
                     <div className="flex flex-col gap-1">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-x-3">
-                          {selectedPaymentMethod === "COD" ? (
+                          {selectedPaymentMethod === "OverTheCounter" ? (
                             <IconCircleCheckFilled className="text-orange-600" />
                           ) : (
                             <Circle />
                           )}
                           <div className="flex flex-col">
                             <div className="flex items-center gap-x-2">
-                              <p className="font-semibold">Cash On Delivery</p>
+                              <p className="font-semibold">Over The Counter</p>
                             </div>
                           </div>
                         </div>

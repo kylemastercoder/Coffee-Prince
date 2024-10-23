@@ -42,18 +42,12 @@ export const placeOrder = async (
   }
 
   const {
-    address,
-    municipality,
-    province,
-    barangay,
-    region,
     contactNumber,
     proofOfPayment,
   } = validatedField.data;
 
   try {
     const orderId = generateOrderId();
-    const completeAddress = `${address}, ${barangay}, ${municipality}, ${province}, ${region}`;
 
     await Promise.all(
       items.map((item) =>
@@ -63,7 +57,6 @@ export const placeOrder = async (
             menuId: item.id,
             orderId: orderId,
             userId: userId,
-            address: completeAddress,
             contactNumber: contactNumber,
             flavor: item.flavor,
             productName: item.name,

@@ -21,11 +21,7 @@ export const MenuFormValidation = z.object({
 });
 
 export const CheckoutFormValidation = z.object({
-  address: z.string().min(1, { message: "Address is required" }),
-  municipality: z.string().min(1, { message: "Municipality is required" }),
-  province: z.string().min(1, { message: "Province is required" }),
-  barangay: z.string().min(1, { message: "Barangay is required" }),
-  region: z.string().min(1, { message: "Region is required" }),
+  name: z.string().min(1, { message: "Name is required" }),
   contactNumber: z.string().min(1, { message: "Contact Number is required" }),
   proofOfPayment: z.string().optional(),
 });

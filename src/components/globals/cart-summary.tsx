@@ -5,7 +5,6 @@ import { Button } from "../ui/button";
 import useCart from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { Badge } from "../ui/badge";
 
 const CartSummary = () => {
   const router = useRouter();
@@ -32,12 +31,6 @@ const CartSummary = () => {
             Order Item/s
           </div>
           <p>{totalQuantity} pc/s</p>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="text-base font-medium text-muted-foreground">
-            Shipping Fee
-          </div>
-          <Badge variant="secondary">Not Assigned</Badge>
         </div>
         <div className="flex items-center justify-between">
           <div className="text-base font-medium text-muted-foreground">

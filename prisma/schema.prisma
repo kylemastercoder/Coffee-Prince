@@ -61,7 +61,6 @@ model Orders {
   name           String
   orderId        String
   userId         String
-  address        String
   contactNumber  String
   flavor         String
   productName    String

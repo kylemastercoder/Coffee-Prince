@@ -31,7 +31,6 @@ const AdminOrders = async () => {
     status: order.status,
     variant: order.variant,
     flavor: order.flavor,
-    address: order.address,
     proofOfPayment: order.proofOfPayment ?? "",
     paymentMethod: order.paymentMethod,
   };

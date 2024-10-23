@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 export type OrderColumn = {
   id: string;
   orderId: string;
-  address: string;
   fullName: string;
   productName: string;
   totalPrice: any;
@@ -48,10 +47,6 @@ export const columns: ColumnDef<OrderColumn>[] = [
   {
     accessorKey: "totalPrice",
     header: "Total Price",
-  },
-  {
-    accessorKey: "address",
-    header: "Address",
   },
   {
     accessorKey: "status",

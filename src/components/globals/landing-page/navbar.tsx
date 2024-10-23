@@ -66,6 +66,12 @@ const Navbar = () => {
           Menu
         </Link>
         <Link
+          href="/#about"
+          className="text-white transition-colors hover:text-orange-600"
+        >
+          About
+        </Link>
+        <Link
           href="/contact-us"
           className="text-white transition-colors hover:text-orange-600"
         >

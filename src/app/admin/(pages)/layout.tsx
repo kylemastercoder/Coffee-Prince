@@ -13,7 +13,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         "h-screen"
       )}
     >
-      <SidebarAdmin imageUrl="https://github.com/shadcn.png" name="Administrator" />
+      <SidebarAdmin imageUrl="https://github.com/shadcn.png" name="Billy Joe Dela Torre" />
       <div className="flex w-full flex-col">
         <HeaderAdmin />
         {children}
