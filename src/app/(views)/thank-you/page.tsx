@@ -35,7 +35,7 @@ const ThankYou = async ({ searchParams }: PageProps) => {
           your order is ready.
           {order[0].userId ? (
             <span className="font-medium text-gray-100 ml-1">
-              {order[0].address}
+              {order[0].contactNumber}
             </span>
           ) : null}
           .
