@@ -7,7 +7,8 @@
     "build": "next build && prisma generate",
     "start": "next start",
     "lint": "next lint",
-    "now-build": "next build"
+    "now-build": "next build",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.7.1",
