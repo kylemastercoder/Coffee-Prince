@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build && prisma generate",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "now-build": "next build"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.7.1",
@@ -56,7 +57,7 @@
     "i": "^0.3.7",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.441.0",
-    "next": "14.2.12",
+    "next": "^14.2.12",
     "next-themes": "^0.3.0",
     "npm": "^10.8.3",
     "react": "^18",
