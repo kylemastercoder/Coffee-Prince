@@ -176,7 +176,7 @@ const Checkout = () => {
             <div className="mt-10">
               <p className="font-semibold text-lg mb-2">Scan To Pay</p>
               <Image
-                src="/images/qr-code.jpg"
+                src="/images/qr-code.png"
                 alt="QR"
                 width={300}
                 height={300}
