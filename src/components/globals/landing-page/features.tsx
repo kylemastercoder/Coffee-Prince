@@ -7,9 +7,9 @@ import OrbitingCircles from "@/components/magicui/orbiting-circles";
 export function FeaturesSection() {
   const features = [
     {
-      title: "Hangout Cafe",
+      title: "Coffee Prince",
       description:
-        "Welcome to Hangout Cafe, where every visit promises a symphony of flavors and a warm, inviting atmosphere.",
+        "Welcome to Coffee Prince, where every visit promises a symphony of flavors and a warm, inviting atmosphere.",
       skeleton: <SkeletonOne />,
       className:
         "col-span-1 lg:col-span-4 border-b lg:border-r dark:border-neutral-800",
@@ -40,11 +40,11 @@ export function FeaturesSection() {
     <div className="relative z-20 py-10 lg:py-40 max-w-7xl mx-auto">
       <div className="px-8">
         <h4 className="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium text-black dark:text-white">
-          Read More About Hangout Cafe
+          Read More About Coffee Prince
         </h4>
 
         <p className="text-sm lg:text-base max-w-2xl my-4 mx-auto text-neutral-500 text-center font-normal dark:text-neutral-300">
-          At Hangout Cafe, we&apos;re more than just a place to dine we&apos;re
+          At Coffee Prince, we&apos;re more than just a place to dine we&apos;re
           a haven where you can relax, catch up with friends, and indulge in
           moments of pure enjoyment.
         </p>
