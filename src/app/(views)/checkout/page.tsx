@@ -186,7 +186,7 @@ const Checkout = () => {
           <div className="w-full md:w-1/2 md:pl-6 mt-10 md:mt-0 md:border-l border-border">
             <h2 className="text-lg font-semibold">Payment Details</h2>
             <p className="text-sm text-muted-foreground mb-5">
-              Complete your purchase by providing your details.
+              Complete your purchase by providing your details. Make sure to fill all the required fields.
             </p>
             <div className="space-y-4">
               <CustomFormField
