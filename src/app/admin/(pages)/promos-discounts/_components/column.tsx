@@ -3,7 +3,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { CellAction } from "./cell-action";
 
 export type PromoColumn = {
   id: string;
@@ -34,10 +33,5 @@ export const columns: ColumnDef<PromoColumn>[] = [
   {
     accessorKey: "createdAt",
     header: "Date Created",
-  },
-  {
-    id: "actions",
-    header: "Actions",
-    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];
