@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import { MessageColumn, columns } from "./column";
+import { PromoColumn, columns } from "./column";
 import { DataTable } from "@/components/globals/data-table";
 
-interface MessageClientProps {
-  data: MessageColumn[];
+interface PromoClientProps {
+  data: PromoColumn[];
 }
 
-const MessageClient: React.FC<MessageClientProps> = ({ data }) => {
+const PromoClient: React.FC<PromoClientProps> = ({ data }) => {
   return (
     <>
       <DataTable searchKey="name" columns={columns} data={data} />
@@ -16,4 +16,4 @@ const MessageClient: React.FC<MessageClientProps> = ({ data }) => {
   );
 };
 
-export default MessageClient;
+export default PromoClient;
