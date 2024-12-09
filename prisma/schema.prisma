@@ -17,6 +17,7 @@ model Menus {
   featured    String   @default("No")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  isArchive   Boolean  @default(false)
 
   categoryId String
   category   Categories @relation("MenuToCategory", fields: [categoryId], references: [id])
@@ -72,9 +73,19 @@ model Orders {
   status         String   @default("Pending")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  isArchive      Boolean  @default(false)
 
   menuId String
   menu   Menus[] @relation("OrderToMenu")
+}
+
+model Ingredients {
+  id        String   @id @default(cuid())
+  name      String
+  stocks    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isArchive Boolean  @default(false)
 }
 
 model Message {
@@ -84,6 +95,19 @@ model Message {
   message   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isArchive Boolean  @default(false)
+}
+
+model Promos {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  image       String?
+  code        String
+  offSale     Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isArchive   Boolean  @default(false)
 }
 
 model Admin {

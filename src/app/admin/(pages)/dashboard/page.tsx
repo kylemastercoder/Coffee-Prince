@@ -4,6 +4,7 @@ import { formatPrice } from "@/lib/utils";
 import { Wallet } from "lucide-react";
 import React from "react";
 import SalesBar from "../_components/sales-bar";
+import InventoryPie from "../_components/inventory-pie";
 
 const getStartDates = () => {
   const now = new Date();
@@ -100,6 +101,7 @@ const AdminDashboard = async () => {
         </Card>
       </div>
       <SalesBar />
+      <InventoryPie />
     </main>
   );
 };

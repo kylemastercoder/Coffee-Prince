@@ -71,16 +71,19 @@ export const deleteMenu = async (menuId: string) => {
   }
 
   try {
-    const menu = await db.menus.delete({
+    const menu = await db.menus.update({
       where: {
         id: menuId,
       },
+      data: {
+        isArchive: true,
+      },
     });
 
-    return { success: "Menu deleted successfully", menu };
+    return { success: "Menu archived successfully", menu };
   } catch (error: any) {
     return {
-      error: `Failed to delete menu. Please try again. ${error.message || ""}`,
+      error: `Failed to archive menu. Please try again. ${error.message || ""}`,
     };
   }
 };
@@ -202,11 +205,42 @@ export const updateStock = async (menuId: string, newStock: number) => {
     // Return success message along with current and new stock values
     return {
       success: "Stock updated successfully",
-      menu: updatedMenu
+      menu: updatedMenu,
     };
   } catch (error: any) {
     return {
       error: `Failed to update stock. Please try again. ${error.message || ""}`,
+    };
+  }
+};
+
+export const addIngredients = async (stock: number, name: string) => {
+  if (!stock || !name) {
+    return { error: "Please fill all required fields" };
+  }
+
+  try {
+    // Retrieve the current stock first
+    const ingredients = await db.ingredients.create({
+      data: {
+        stocks: stock,
+        name,
+      },
+    });
+
+    if (!ingredients) {
+      return { error: "Ingredient not added" };
+    }
+
+    return {
+      success: "Ingredient added successfully",
+      ingredients: ingredients,
+    };
+  } catch (error: any) {
+    return {
+      error: `Failed to add ingredient. Please try again. ${
+        error.message || ""
+      }`,
     };
   }
 };

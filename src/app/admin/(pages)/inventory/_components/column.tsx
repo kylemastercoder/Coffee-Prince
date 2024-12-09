@@ -18,6 +18,13 @@ export type InventoryColumn = {
   createdAt: string;
 };
 
+export type IngredientsColumn = {
+  id: string;
+  name: string;
+  stocks: number;
+  createdAt: string;
+};
+
 export const columns: ColumnDef<InventoryColumn>[] = [
   {
     accessorKey: "name",
@@ -55,7 +62,11 @@ export const columns: ColumnDef<InventoryColumn>[] = [
   {
     header: "Status",
     cell: ({ row }) => {
-      return <Badge variant={row.original.stocks === 0 ? "destructive" : "success"}>{row.original.stocks === 0 ? "Out of Stock" : "In Stock"}</Badge>;
+      return (
+        <Badge variant={row.original.stocks === 0 ? "destructive" : "success"}>
+          {row.original.stocks === 0 ? "Out of Stock" : "In Stock"}
+        </Badge>
+      );
     },
   },
   {
@@ -66,5 +77,20 @@ export const columns: ColumnDef<InventoryColumn>[] = [
     id: "actions",
     header: "Actions",
     cell: ({ row }) => <CellAction data={row.original} />,
+  },
+];
+
+export const columnsIngredients: ColumnDef<IngredientsColumn>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "stocks",
+    header: "Stocks",
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Date Created",
   },
 ];

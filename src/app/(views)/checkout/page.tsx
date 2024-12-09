@@ -23,12 +23,18 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { placeOrder } from "@/actions/orders";
 import { useUser } from "@clerk/nextjs";
+import { Input } from "@/components/ui/input";
+import { getPromos } from "@/actions/promos";
+import { sendReceiptEmail } from "@/lib/send-email";
 
 const Checkout = () => {
   const cart = useCart();
   const router = useRouter();
   const { user } = useUser();
   const [isPending, setIsPending] = useState(false);
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("Gcash");
   const handleSelectPaymentMethod = (name: string) => {
     setSelectedPaymentMethod(name);
@@ -62,6 +68,33 @@ const Checkout = () => {
     0
   );
 
+  const discountedPrice = totalPrice - (totalPrice * discount) / 100;
+
+  const handlePromoCodeSubmit = async () => {
+    if (!promoCode) {
+      toast.error("Please enter a promo code");
+      return;
+    }
+
+    const { promos, error } = await getPromos();
+
+    if (error) {
+      toast.error(error);
+      return;
+    }
+
+    // Find the promo code in the fetched promos
+    const promo = promos?.find((promo) => promo.code === promoCode);
+
+    if (promo) {
+      setDiscount(promo.offSale);
+      setIsPromoApplied(true);
+      toast.success(`Promo code applied: ${promo.offSale}% off!`);
+    } else {
+      toast.error("Invalid promo code");
+    }
+  };
+
   const onSubmit = async (values: z.infer<typeof CheckoutFormValidation>) => {
     setIsPending(true);
     try {
@@ -77,6 +110,14 @@ const Checkout = () => {
         cart.removeAll();
         toast.success(response.success);
         router.push(`/thank-you?orderId=${response?.orderId}`);
+        await sendReceiptEmail(
+          user?.fullName as string,
+          user?.emailAddresses[0]?.emailAddress as string,
+          response?.orderDate as string,
+          response?.orderId as string,
+          cart.items,
+          discountedPrice
+        );
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -163,14 +204,35 @@ const Checkout = () => {
             <p className="text-sm text-muted-foreground mt-5">
               Payments are secured and encrypted.
             </p>
+            <div className="flex items-center mt-3">
+              <Input
+                placeholder="Enter Promo Code"
+                value={promoCode}
+                disabled={isPromoApplied}
+                onChange={(e) => setPromoCode(e.target.value)}
+              />
+              <Button
+                onClick={handlePromoCodeSubmit}
+                disabled={isPromoApplied}
+                variant="outline"
+                className="ml-1"
+                type="button"
+              >
+                Apply
+              </Button>
+            </div>
             <div className="space-y-1.5 text-sm mt-3">
               <div className="flex">
                 <span className="flex-1">Total Item/s</span>
                 <span>{totalQuantity} pc/s</span>
               </div>
               <div className="flex">
+                <span className="flex-1">Total Discount/s</span>
+                <span>{discount > 0 ? `${discount}%` : "None"}</span>
+              </div>
+              <div className="flex">
                 <span className="flex-1">Total Payment</span>
-                <span>{formatPrice(totalPrice)}</span>
+                <span>{formatPrice(discountedPrice)}</span>
               </div>
             </div>
             <div className="mt-10">
@@ -186,7 +248,8 @@ const Checkout = () => {
           <div className="w-full md:w-1/2 md:pl-6 mt-10 md:mt-0 md:border-l border-border">
             <h2 className="text-lg font-semibold">Payment Details</h2>
             <p className="text-sm text-muted-foreground mb-5">
-              Complete your purchase by providing your details. Make sure to fill all the required fields.
+              Complete your purchase by providing your details. Make sure to
+              fill all the required fields.
             </p>
             <div className="space-y-4">
               <CustomFormField
@@ -338,7 +401,7 @@ const Checkout = () => {
               />
               <Button disabled={isPending} className="w-full mt-3">
                 {isPending && <Loader2 className="animate-spin mr-2" />}
-                Pay {formatPrice(totalPrice)} &rarr;
+                Pay {formatPrice(discountedPrice)} &rarr;
               </Button>
             </div>
           </div>

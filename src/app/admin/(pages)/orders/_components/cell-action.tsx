@@ -9,10 +9,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CheckCheckIcon, Image, MoreHorizontal, Trash, X } from "lucide-react";
+import { CheckCheckIcon, Image, MoreHorizontal, X } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -137,11 +136,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
               View Proof
             </DropdownMenuItem>
           )}
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="w-4 h-4 mr-2" />
-            Delete
-          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

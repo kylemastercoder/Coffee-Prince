@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
@@ -6,7 +8,7 @@ import { CheckoutFormValidation } from "@/lib/validators";
 import { auth } from "@clerk/nextjs/server";
 import { z } from "zod";
 
-interface CartItem {
+export interface CartItem {
   id: string;
   name: string;
   image: string;
@@ -27,7 +29,7 @@ export const placeOrder = async (
   values: z.infer<typeof CheckoutFormValidation>,
   selectedPaymentMethod: string,
   items: CartItem[],
-  fullName: string
+  fullName: string,
 ) => {
   const { userId } = auth();
 
@@ -41,13 +43,11 @@ export const placeOrder = async (
     return { error: `Validation Error: ${errors.join(", ")}` };
   }
 
-  const {
-    contactNumber,
-    proofOfPayment,
-  } = validatedField.data;
+  const { contactNumber, proofOfPayment } = validatedField.data;
 
   try {
     const orderId = generateOrderId();
+    const orderDate = new Date().toLocaleDateString();
 
     await Promise.all(
       items.map((item) =>
@@ -69,8 +69,7 @@ export const placeOrder = async (
         })
       )
     );
-
-    return { success: "Order placed successfully", orderId };
+    return { success: "Order placed successfully", orderId, orderDate };
   } catch (error: any) {
     console.error("Error placing order:", error);
     return {
@@ -203,5 +202,19 @@ export const fetchSalesByMonth = async () => {
     return formattedData;
   } catch (error) {
     console.error("Error fetching sales data:", error);
+  }
+};
+
+export const fetchAllOrders = async () => {
+  try {
+    const orders = await db.orders.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return orders;
+  } catch (error) {
+    console.error("Error fetching orders:", error);
   }
 };

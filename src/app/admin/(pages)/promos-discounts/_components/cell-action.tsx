@@ -1,44 +1,38 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { MenuColumn } from "./column";
+import { MessageColumn } from "./column";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AlertModal from "@/components/globals/alert-modal";
-import { deleteMenu } from "@/actions/menu";
+import { deleteMessage } from "@/actions/contact";
 
 interface CellActionProps {
-  data: MenuColumn;
+  data: MessageColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const onCopy = (name: string) => {
-    navigator.clipboard.writeText(name);
-    toast.success("Data copied to the clipboard");
-  };
 
   const onDelete = async () => {
     setIsLoading(true);
-    deleteMenu(data.id)
+    deleteMessage(data.id)
       .then((data) => {
         if (data.success) {
           toast.success(data.success);
-          window.location.reload();
-          setOpen(false);
+          router.refresh();
         } else {
           toast.error(data.error);
         }
@@ -65,20 +59,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => router.push(`/admin/menus/${data.id}`)}
-          >
-            <Edit className="w-4 h-4 mr-2" />
-            Update
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => onCopy(data.name)}>
-            <Copy className="w-4 h-4 mr-2" />
-            Copy
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="w-4 h-4 mr-2" />
-            Archive
+            Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

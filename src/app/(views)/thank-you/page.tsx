@@ -66,12 +66,7 @@ const ThankYou = async ({ searchParams }: PageProps) => {
           </ul>
 
           <div className="space-y-6 border-t border-gray-800 pt-6 text-sm font-medium text-muted-foreground">
-            <div className="flex justify-between">
-              <p>Shipping Fee</p>
-              <p className="text-gray-100">N/A</p>
-            </div>
-
-            <div className="flex items-center justify-between border-t border-gray-800 pt-6 text-gray-100">
+            <div className="flex items-center justify-between border-gray-800 pt-6 text-gray-100">
               <p className="text-base">Total</p>
               <p className="text-base">
                 {formatPrice(Number(order[0].totalPrice))}
