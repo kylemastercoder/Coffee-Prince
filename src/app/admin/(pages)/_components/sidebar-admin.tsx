@@ -12,6 +12,7 @@ import {
   IconStack2,
   IconTicket,
   IconTruckDelivery,
+  IconWallet,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -68,6 +69,13 @@ const SidebarAdmin = ({
       href: "/admin/promos-discounts",
       icon: (
         <IconTicket className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Payment Method",
+      href: "/admin/payment-method",
+      icon: (
+        <IconWallet className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];

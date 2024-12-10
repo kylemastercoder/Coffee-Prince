@@ -26,6 +26,7 @@ import { useUser } from "@clerk/nextjs";
 import { Input } from "@/components/ui/input";
 import { getPromos } from "@/actions/promos";
 import { sendReceiptEmail } from "@/lib/send-email";
+import { getPaymentMethod } from "@/actions/payment-method";
 
 const Checkout = () => {
   const cart = useCart();
@@ -36,6 +37,8 @@ const Checkout = () => {
   const [discount, setDiscount] = useState(0);
   const [isPromoApplied, setIsPromoApplied] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("Gcash");
+  const [qrCode, setQrCode] = useState("");
+  const [gcashName, setGcashName] = useState("");
   const handleSelectPaymentMethod = (name: string) => {
     setSelectedPaymentMethod(name);
   };
@@ -58,6 +61,23 @@ const Checkout = () => {
       });
     }
   }, [user, form]);
+
+  useEffect(() => {
+    const fetchPaymentMethod = async () => {
+      const response = await getPaymentMethod();
+      if (response.paymentMethod && response.paymentMethod.length > 0) {
+        if (response.paymentMethod[0].image) {
+          setQrCode(response.paymentMethod[0].image);
+          setGcashName(response.paymentMethod[0].name);
+        } else {
+          setQrCode("");
+          setGcashName("");
+        }
+      }
+    };
+
+    fetchPaymentMethod();
+  }, []);
 
   const pricePerMenu = cart.items.map((item) => item.price * item.quantity);
 
@@ -237,12 +257,8 @@ const Checkout = () => {
             </div>
             <div className="mt-10">
               <p className="font-semibold text-lg mb-2">Scan To Pay</p>
-              <Image
-                src="/images/qr-code.png"
-                alt="QR"
-                width={300}
-                height={300}
-              />
+              <h3 className="mb-3 font-semibold text-lg">Gcash Name: {gcashName}</h3>
+              <Image src={qrCode} alt="QR" width={300} height={300} />
             </div>
           </div>
           <div className="w-full md:w-1/2 md:pl-6 mt-10 md:mt-0 md:border-l border-border">
