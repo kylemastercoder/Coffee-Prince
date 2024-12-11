@@ -23,13 +23,13 @@ export const sendReceiptEmail = async (
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "kylemastercoder14@gmail.com",
-      pass: "ssslhdkdxbqulvdt",
+      user: "coffeeprince696@gmail.com",
+      pass: "yzvzioljdcqlfkif",
     },
   });
 
   const message = {
-    from: "kylemastercoder14@gmail.com",
+    from: "coffeeprince696@gmail.com",
     to: email,
     subject: "Coffee Prince",
     text: `Coffee Prince - Order Receipt`,
